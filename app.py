@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/elevation", methods=["GET"])
 def elevation():
     try:
-        coord = request.args.get("coor")
+        coord = request.args.get("coords")
         lat_str, lon_str = coord.split(",")
         lat = float(lat_str.strip())
         lon = float(lon_str.strip())
