@@ -7,7 +7,7 @@ import laspy
 # Step 1: Function to handle vertical datum correction (optional usage)
 def geoid_correction(orthometric_height, target_lat, target_lon):
     """Apply geoid correction to convert orthometric height (MSL) to ellipsoidal height (WGS84)."""
-    geoid_separation = 0.35  # Approximate for Paris region
+    geoid_separation = 0.35
     ellipsoidal_height = orthometric_height + geoid_separation
     return ellipsoidal_height
 
