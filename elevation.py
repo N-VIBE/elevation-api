@@ -5,10 +5,13 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 import laspy
 
 # Step 1: Function to handle vertical datum correction (optional usage)
-def geoid_correction(orthometric_height, target_lat, target_lon):
-    """Apply geoid correction to convert orthometric height (MSL) to ellipsoidal height (WGS84)."""
-    geoid_separation = 0.35
-    ellipsoidal_height = orthometric_height + geoid_separation
+def geoid_correction(orthometric_height, lat, lon):
+    transformer = Transformer.from_crs(
+        "epsg:4326",
+        "epsg:4326+5773",
+        always_xy=True
+    )
+    lon, lat, ellipsoidal_height = transformer.transform(lon, lat, orthometric_height)
     return ellipsoidal_height
 
 # Step 2: Process a single LAZ file
