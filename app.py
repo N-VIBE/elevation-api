@@ -6,8 +6,10 @@ app = Flask(__name__)
 @app.route("/elevation", methods=["GET"])
 def elevation():
     try:
-        lat = float(request.args.get("lat"))
-        lon = float(request.args.get("lon"))
+        coord = request.args.get("coor")
+        lat_str, lon_str = coord.split(",")
+        lat = float(lat_str.strip())
+        lon = float(lon_str.strip())
         radius = float(request.args.get("radius", 10.0))
     except Exception:
         return jsonify({"status": "error", "message": "Invalid or missing parameters"}), 400
@@ -20,7 +22,5 @@ def elevation():
 
     return jsonify({
         "status": "success",
-        "latitude": lat,
-        "longitude": lon,
-        "elevation": elevation
+        "elevation": elevation 
     })
